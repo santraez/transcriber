@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AudioPlayer } from "@/components/audio-player";
+import { AudioPlayer } from "../components/audio-player";
 import { TabSwitch } from "./tab-switch";
 import type { Transcriber } from "../hooks/use-transcriber";
 

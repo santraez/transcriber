@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 
 import type { TranscriberData } from "../hooks/use-transcriber";
 import { TextBubble } from "./text-bubble";
-import { getTimestamp } from "@/utils/get-timestamp";
+import { getTimestamp } from "../utils/get-timestamp";
 
 interface TranscriptProps {
   output: TranscriberData | undefined;

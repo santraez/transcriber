@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { formatAudioTimestamp } from "@/utils/audio-utils";
-import type { TrackData } from "@/components/audio-manager";
+import { formatAudioTimestamp } from "../utils/audio-utils";
+import type { TrackData } from "../components/audio-manager";
 import type { Transcriber } from "../hooks/use-transcriber";
 
 interface TabSwitchProps {

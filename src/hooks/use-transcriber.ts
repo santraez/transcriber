@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useWorker } from "./useWorker";
-import { mobileCheck } from "@/utils/mobile-check";
+import { mobileCheck } from "../utils/mobile-check";
 
 export interface ProgressItem {
   file: string;
