@@ -27,6 +27,10 @@ export function Transcript({
   };
 
   const exportTXT = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+
     let chunks = output?.chunks ?? [];
     let text = chunks
       .map((chunk) => chunk.text)
@@ -38,6 +42,10 @@ export function Transcript({
   };
 
   const exportJSON = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+
     let jsonData = JSON.stringify(output?.chunks ?? [], null, 2);
 
     const regex = /(    "timestamp": )\[\s+(\S+)\s+(\S+)\s+\]/gm;

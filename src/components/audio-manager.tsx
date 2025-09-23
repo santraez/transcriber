@@ -68,6 +68,10 @@ export function AudioManager({
         <button
           className="flex duo-button transcript-button flex-1! h-16 xl:h-20 text-lg! z-1"
           onClick={() => {
+            if (navigator.vibrate) {
+              navigator.vibrate(50);
+            }
+
             if (!transcriber.isBusy && !transcriber.isModelLoading) {
               transcriber.start(trackData!.buffer);
               setBackToHome(false);
@@ -88,7 +92,13 @@ export function AudioManager({
           {transcriber.output ? (
             <button
               className="duo-button go-to-transcript w-16! h-16 aspect-square z-1"
-              onClick={() => setActivePage(1)}
+              onClick={() => {
+                if (navigator.vibrate) {
+                  navigator.vibrate(50);
+                }
+
+                setActivePage(1);
+              }}
             >
               <span className="text-[#4b4b4b] text-xl">{">>>"}</span>
             </button>

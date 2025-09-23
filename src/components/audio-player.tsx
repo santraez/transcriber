@@ -11,6 +11,10 @@ export function AudioPlayer({ url, mimeType }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const togglePlayPause = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+
     const audio = audioRef.current;
     if (!audio) return;
 

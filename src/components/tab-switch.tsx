@@ -236,6 +236,10 @@ export function TabSwitch({
   };
 
   const handleToggleRecording = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+
     if (recording) {
       stopRecording();
     } else {
@@ -276,6 +280,10 @@ export function TabSwitch({
           <button
             className="duo-button select-button h-10 xl:h-12 z-1"
             onClick={() => {
+              if (navigator.vibrate) {
+                navigator.vibrate(50);
+              }
+
               const el = textAreaRef.current;
               if (!el) return;
 
@@ -326,7 +334,13 @@ export function TabSwitch({
           </span>
           <button
             className="duo-button select-button h-10 xl:h-12 z-1"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => {
+              if (navigator.vibrate) {
+                navigator.vibrate(50);
+              }
+
+              fileInputRef.current?.click();
+            }}
           >
             <span className="text-[#4b4b4b]">Upload file</span>
           </button>
