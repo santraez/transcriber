@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useWorker } from "./useWorker";
-import Constants from "../utils/Constants";
+import { mobileCheck } from "@/utils/mobile-check";
 
 export interface ProgressItem {
   file: string;
@@ -62,10 +62,8 @@ export function useTranscriber(): Transcriber {
 
   const webWorker = useWorker((event) => {
     const message = event.data;
-    // Update the state with the result
     switch (message.status) {
       case "progress":
-        // Model file progress: update one of the progress items.
         setProgressItems((prev) =>
           prev.map((item) => {
             if (item.file === message.file) {
@@ -76,9 +74,6 @@ export function useTranscriber(): Transcriber {
         );
         break;
       case "update":
-        // Received partial update
-        // console.log("update", message);
-        // eslint-disable-next-line no-case-declarations
         const updateMessage = message as TranscriberUpdateData;
         setTranscript({
           isBusy: true,
@@ -87,9 +82,6 @@ export function useTranscriber(): Transcriber {
         });
         break;
       case "complete":
-        // Received complete transcript
-        // console.log("complete", message);
-        // eslint-disable-next-line no-case-declarations
         const completeMessage = message as TranscriberCompleteData;
         setTranscript({
           isBusy: false,
@@ -100,7 +92,6 @@ export function useTranscriber(): Transcriber {
         break;
 
       case "initiate":
-        // Model file start load: add a new progress item to the list.
         setIsModelLoading(true);
         setProgressItems((prev) => [...prev, message]);
         break;
@@ -114,27 +105,21 @@ export function useTranscriber(): Transcriber {
         );
         break;
       case "done":
-        // Model file loaded: remove the progress item from the list.
         setProgressItems((prev) =>
           prev.filter((item) => item.file !== message.file)
         );
         break;
 
       default:
-        // initiate/download/done
         break;
     }
   });
 
-  const [model, setModel] = useState<string>(Constants.DEFAULT_MODEL);
-  const [subtask, setSubtask] = useState<string>(Constants.DEFAULT_SUBTASK);
-  const [quantized, setQuantized] = useState<boolean>(
-    Constants.DEFAULT_QUANTIZED
-  );
-  const [multilingual, setMultilingual] = useState<boolean>(
-    Constants.DEFAULT_MULTILINGUAL
-  );
-  const [language, setLanguage] = useState<string>(Constants.DEFAULT_LANGUAGE);
+  const [model, setModel] = useState<string>("Xenova/whisper-tiny");
+  const [subtask, setSubtask] = useState<string>("transcribe");
+  const [quantized, setQuantized] = useState<boolean>(mobileCheck());
+  const [multilingual, setMultilingual] = useState<boolean>(false);
+  const [language, setLanguage] = useState<string>("en");
 
   const onInputChange = useCallback(() => {
     setTranscript(undefined);
@@ -158,7 +143,6 @@ export function useTranscriber(): Transcriber {
             audio[i] = (SCALING_FACTOR * (left[i] + right[i])) / 2;
           }
         } else {
-          // If the audio is not stereo, we can just use the first channel:
           audio = audioData.getChannelData(0);
         }
 
