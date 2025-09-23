@@ -34,7 +34,7 @@ function App() {
           className="w-full h-full flex flex-row transition-transform duration-500"
           style={{ transform: `translateX(-${activePage * 50}%)` }}
         >
-          <div className="w-[100vw] xl:w-1/3 h-full xl:h-auto pt-48 flex-shrink-0">
+          <div className="w-[100vw] xl:w-1/3 h-full xl:h-auto pt-32 xl:pt-48 flex-shrink-0">
             <AudioManager
               transcriber={transcriber}
               setActivePage={setActivePage}
